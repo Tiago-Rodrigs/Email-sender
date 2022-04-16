@@ -1,26 +1,26 @@
 const express = require("express");
-const cors = require("cors");
 
 const server = express();
 
 server.use(express.json());
+
 server.use(cors());
 
 const nodemailer = require("nodemailer");
 
-require("dotenv").config();
+const cors = require("cors");
 
 server.post("/sendemail", async (req, res) => {
   const { name, email, message, terms } = req.body;
 
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
-    host: "smtp.hostinger.com",
-    port: 465,
+    host: "smtp.hostinger.com", // host from the provider
+    port: 465, // port from the provider
     secure: true,
     auth: {
-      user: "contact@dkorr.fr", // generated ethereal user
-      pass: "Rodrigo010", // generated ethereal password
+      user: "your email",
+      pass: "your password", // generated ethereal password
     },
     tls: {
       rejectUnauthorized: false,
@@ -30,10 +30,10 @@ server.post("/sendemail", async (req, res) => {
   // send mail with defined transport object
   let info = await transporter
     .sendMail({
-      from: "contact@dkorr.fr", // sender address
-      to: "contact@dkorr.fr", // list of receivers
-      text: "Dkorr website",
-      subject: `Nouvelle demande de ${name}`, // Subject line
+      from: "", // sender address
+      to: "", // list of receivers
+      text: "", // your text
+      subject: `New message from ${name}`, // Subject line
       html: `<b>
 
         <table>
